@@ -39,7 +39,7 @@
 //     setMessage(""); // Clear any previous messages
 
 //     // API URL
-//     const apiUrl = "http://192.168.0.106:8080/auth/register";
+//     const apiUrl = "http://localhost:8080/auth/register";
 
 //     // Request body
 //     const requestBody = {
@@ -216,7 +216,7 @@ function CreateUserForm() {
     setMessage(""); // Clear any previous messages
 
     // API URL
-    const apiUrl = "http://192.168.0.106:8080/auth/register";
+    const apiUrl = "http://localhost:8080/auth/register";
 
     // Request body
     const requestBody = {

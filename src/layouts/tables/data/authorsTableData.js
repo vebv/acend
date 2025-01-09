@@ -12,7 +12,7 @@ export default function Data() {
   useEffect(() => {
     const fetchPublications = async () => {
       try {
-        const response = await fetch("http://192.168.0.106:8080/api/publications/getAllPublication", {
+        const response = await fetch("http://localhost:8080/api/publications/getAllPublication", {
           method: "GET",
           headers: {
             Authorization:

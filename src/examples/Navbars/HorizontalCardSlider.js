@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -17,13 +18,17 @@ const HorizontalCardSlider = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get("http://192.168.0.106:8080/api/news/getAllNews", {
+        const response = await axios.get("http://localhost:8080/api/offerAndNews/getAllOfferAndNews", {
           headers: {
             Authorization:
               "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI3NWU4OGUxZC1lMjVhLTQzOWYtOWUzMy02MTI0ZWQyMTk5ZjMiLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSTNOV1U0T0dVeFpDMWxNalZoTFRRek9XWXRPV1V6TXkwMk1USTBaV1F5TVRrNVpqTWlMQ0pwWVhRaU9qRTNNelU0T1RBeE5qRXNJbVY0Y0NJNk1UY3pOamMxTkRFMk1YMC5aTnRVaTZQYk5DUHFxRnF6TTVoQng4WFpXT0h6eWRxV2ZOSmZvQjlvby1jIiwiaWF0IjoxNzM1ODkwMTgwfQ.q2BtFNfOEvw0KD-2bKC8SkhyBm8VbxVCxEWEOzwvX9A",
           },
         });
-        setNews(response.data.data); // Update the state with the news data
+
+        // Log the response to check the structure
+        console.log(response.data);
+
+        setNews(response.data.data); // Assuming the news data is in the 'data' property
         setLoading(false);
       } catch (err) {
         setError("Failed to load news.");
@@ -94,26 +99,28 @@ const HorizontalCardSlider = () => {
           width: "100%", // Ensure the width is 100%
         }}
       >
-        {/* Loop through the news and display them */}
-        {news.map((item, index) => (
-          <MDBox
-            key={item.newsId} // Use newsId for unique key
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minWidth: "100%", // Ensure each news item takes full screen width
-              padding: "0 20px", // Optional padding
-              backgroundColor: "#f4f4f4",
-              borderRadius: "4px",
-              boxSizing: "border-box",
-            }}
-          >
-            <Typography variant="h6" color="text.secondary">
-              {item.news}
-            </Typography>
-          </MDBox>
-        ))}
+        {/* Filter news items to display only those with type 'NEWS' */}
+        {news
+          .filter((item) => item.type === "NEWS") // Filter by 'NEWS' type
+          .map((item, index) => (
+            <MDBox
+              key={item.offersAndNews} // Use offersAndNews for unique key
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minWidth: "100%", // Ensure each news item takes full screen width
+                padding: "0 20px", // Optional padding
+                backgroundColor: "#f4f4f4",
+                borderRadius: "4px",
+                boxSizing: "border-box",
+              }}
+            >
+              <Typography variant="h6" color="text.secondary">
+                {item.text} {/* Display the text from the response */}
+              </Typography>
+            </MDBox>
+          ))}
       </MDBox>
 
       {/* Arrow Buttons */}

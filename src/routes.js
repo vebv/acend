@@ -4,6 +4,7 @@ import Tables from "layouts/tables";
 import SignUp from "layouts/authentication/sign-up";
 import SignIn from "layouts/authentication/sign-up";
 import OfferNewsList from "layouts/authentication/components/OfferNewsList";
+import UserList from "layouts/authentication/components/UserList";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -78,8 +79,8 @@ const routes = [
     name: "User List",
     key: "User List",
     icon: <Icon fontSize="small">list</Icon>,
-    route: "/authentication/sign-up",
-    component: <localhost />,
+    route: "/authentication/UserList",
+    component: <UserList/>,
   },
 ];
 

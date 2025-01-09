@@ -46,7 +46,7 @@
   
 //     try {
 //       // Call the login API to get the access token
-//       const loginResponse = await axios.post("http://192.168.0.106:8080/auth/login", {
+//       const loginResponse = await axios.post("http://localhost:8080/auth/login", {
 //         identifier, // send identifier (mobile number or username)
 //         password,   // send password
 //       });
@@ -58,7 +58,7 @@
 //         setMessage("Login successful!");
   
 //         // Now use the access token to call the authentication API
-//         const authResponse = await axios.post("http://192.168.0.106:8080/auth/authenticate", {
+//         const authResponse = await axios.post("http://localhost:8080/auth/authenticate", {
 //           accessCode: loginResponse.data.accessToken, // Pass the accessToken from the login response
 //         });
   
