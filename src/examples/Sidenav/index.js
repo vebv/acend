@@ -1,17 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 import { useEffect } from "react";
 
@@ -63,6 +49,9 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   const closeSidenav = () => setMiniSidenav(dispatch, true);
 
+  // Retrieve the userRole from localStorage
+  const userRole = localStorage.getItem("userRole");
+
   useEffect(() => {
     // A function that sets the mini state of the sidenav.
     function handleMiniSidenav() {
@@ -83,8 +72,25 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
-  // Render all the routes from the routes.js (All the visible items on the Sidenav)
-  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
+  // Filter routes based on userRole
+  const filteredRoutes = routes.filter((route) => {
+    if (userRole === "BUSINESS_TEAM") {
+      // Show only "tables" and "create" sections
+      return route.key === "tables" || route.key === "createUsers"; // Replace with actual keys
+    }
+    if (userRole === "SUPER_ADMIN" || userRole === "ADMIN") {
+      // Show all sections for SUPER_ADMIN and ADMIN
+      return true;
+    }
+    if (userRole === "CLIENT") {
+      // Show only "tables" section
+      return route.key === "tables"; // Replace with actual keys
+    }
+    return false; // Default to hiding everything for unknown roles
+  });
+
+  // Render all the routes from the filtered routes
+  const renderRoutes = filteredRoutes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
 
     if (type === "collapse") {
@@ -182,18 +188,16 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       <MDBox p={2} mt="auto">
         <MDButton
           component="a"
-          // href="https://www.creative-tim.com/product/material-dashboard-pro-react"
           target="_blank"
           rel="noreferrer"
           variant="gradient"
           color={sidenavColor}
           fullWidth
         >
-          SIGN OUT 
+          SIGN OUT
         </MDButton>
       </MDBox>
     </SidenavRoot>
-    // <></>
   );
 }
 

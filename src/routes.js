@@ -5,6 +5,7 @@ import SignUp from "layouts/authentication/sign-up";
 import SignIn from "layouts/authentication/sign-up";
 import OfferNewsList from "layouts/authentication/components/OfferNewsList";
 import UserList from "layouts/authentication/components/UserList";
+import UserCreate from "layouts/createUsers";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -61,10 +62,10 @@ const routes = [
   {
     type: "collapse",
     name: "Create",
-    key: "sign-in",
+    key: "createUsers",
     icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
+    route: "/authentication/createUsers",
+    component: <UserCreate/>,
   },
   {
     type: "collapse",

@@ -69,6 +69,10 @@ function Basic() {
           localStorage.setItem("sessionToken", authResponse.data.sessionToken);
           setMessage("Authentication successful.");
   
+          // Store userRole in local storage
+          localStorage.setItem("userRole", authResponse.data.userRole);
+          console.log("User role stored in local storage:", authResponse.data.userRole);
+  
           // Redirect to the /Tables page after successful authentication
           navigate("/Tables");
         } else {

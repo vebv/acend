@@ -1,144 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import Grid from "@mui/material/Grid";
-// import Card from "@mui/material/Card";
-// import axios from "axios";
-
-// // Material Dashboard 2 React components
-// import MDBox from "components/MDBox";
-
-// // Material Dashboard 2 React example components
-// import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-// import DataTable from "examples/Tables/DataTable";
-
-// // Material UI Icons
-// import EditIcon from "@mui/icons-material/Edit";
-// import DeleteIcon from "@mui/icons-material/Delete";
-
-// function UserList() {
-//   const [columns, setColumns] = useState([]);
-//   const [rows, setRows] = useState([]);
-
-//   useEffect(() => {
-//     // Fetch users from the API
-//     const fetchUsers = async () => {
-//       try {
-//         const response = await axios.get("http://localhost:8080/auth/getAllUsers", {
-//           headers: {
-//             Authorization:
-//               "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI3NWU4OGUxZC1lMjVhLTQzOWYtOWUzMy02MTI0ZWQyMTk5ZjMiLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSTNOV1U0T0dVeFpDMWxNalZoTFRRek9XWXRPV1V6TXkwMk1USTBaV1F5TVRrNVpqTWlMQ0pwWVhRaU9qRTNNelU0T1RBeE5qRXNJbVY0Y0NJNk1UY3pOamMxTkRFMk1YMC5aTnRVaTZQYk5DUHFxRnF6TTVoQng4WFpXT0h6eWRxV2ZOSmZvQjlvby1jIiwiaWF0IjoxNzM1ODkwMTgwfQ.q2BtFNfOEvw0KD-2bKC8SkhyBm8VbxVCxEWEOzwvX9A",
-//           },
-//         });
-
-//         // Define columns with Edit and Delete
-//         const userColumns = [
-//           { Header: "Sr. No.", accessor: "srNo", align: "center" },
-//           { Header: "Email", accessor: "email", align: "center" },
-//           { Header: "Mobile Number", accessor: "mobileNumber", align: "center" },
-//           { Header: "User Role", accessor: "userRole", align: "center" },
-//           {
-//             Header: "Actions", // Action column header
-//             accessor: "actions", // Action column accessor
-//             align: "center",
-//           },
-//         ];
-
-//         // Map rows from API response with Sr. No. and Actions
-//         const userRows = response.data.map((user, index) => ({
-//           srNo: index + 1, // Generate Sr. No. starting from 1
-//           email: user.email,
-//           mobileNumber: user.mobileNumber,
-//           userRole: user.userRole,
-//           actions: (
-//             <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-//               {/* Edit and Delete Icons */}
-//               <EditIcon
-//                 style={{ color: "blue", cursor: "pointer" }}
-//                 onClick={() => handleEdit(user)}
-//               />
-//               <DeleteIcon
-//                 style={{ color: "red", cursor: "pointer" }}
-//                 onClick={() => handleDelete(user.id)}
-//               />
-//             </div>
-//           ),
-//         }));
-
-//         setColumns(userColumns);
-//         setRows(userRows);
-//       } catch (error) {
-//         console.error("Error fetching users:", error);
-//       }
-//     };
-
-//     fetchUsers();
-//   }, []);
-
-//   // Handle Edit Action
-//   const handleEdit = (user) => {
-//     alert(`Edit user: ${user.email}`);
-//     // Implement your edit logic here
-//   };
-
-//   // Handle Delete Action
-//   const handleDelete = (id) => {
-//     const confirmed = window.confirm("Are you sure you want to delete this user?");
-//     if (confirmed) {
-//       // Implement delete logic here
-//       alert(`Deleted user with ID: ${id}`);
-//     }
-//   };
-
-//   return (
-//     <DashboardLayout>
-//       <MDBox pt={6} pb={3}>
-//         <Grid container spacing={6}>
-//           <Grid item xs={12}>
-//             <Card>
-//               <MDBox
-//                 mx={2}
-//                 mt={-3}
-//                 py={3}
-//                 px={2}
-//                 variant="gradient"
-//                 bgColor="info"
-//                 borderRadius="lg"
-//                 coloredShadow="info"
-//                 display="flex"
-//                 justifyContent="center" // Center-align the text
-//                 alignItems="center"
-//               >
-//                 <MDBox>
-//                   <h2 style={{ color: "white", margin: 0 }}>User List</h2>
-//                 </MDBox>
-//               </MDBox>
-//               <MDBox pt={3}>
-//                 <DataTable
-//                   table={{ columns, rows }}
-//                   isSorted={false}
-//                   entriesPerPage={false}
-//                   showTotalEntries={false}
-//                   noEndBorder
-//                 />
-//               </MDBox>
-//             </Card>
-//           </Grid>
-//         </Grid>
-//       </MDBox>
-//     </DashboardLayout>
-//   );
-// }
-
-// export default UserList;
-
-
-
-
-
-
-
-
-
-
 
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
@@ -163,6 +22,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 
 function UserList() {
   const [columns, setColumns] = useState([]);
@@ -174,62 +34,59 @@ function UserList() {
     mobileNumber: "",
     userRole: "",
   });
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/auth/getAllUsers", {
+        headers: {
+          Authorization:
+          "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjOGEzMmI1NC1iNWZlLTRjZmUtYWI5YS1lYWJlNGY4ZmJhMDEiLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSmpPR0V6TW1JMU5DMWlOV1psTFRSalptVXRZV0k1WVMxbFlXSmxOR1k0Wm1KaE1ERWlMQ0pwWVhRaU9qRTNNelkwTWpNNU56QXNJbVY0Y0NJNk1UY3pOekk0TnprM01IMC5JZDlzRlg1VDkxbDh0ZEY2SkVtTzZSQkRlU3ZlbEZaMkNpUnNLZWwtMFdNIiwiaWF0IjoxNzM2NDIzOTg1fQ.h504ZL2SKWBe74hWkEvbQT7nqlvuY_MCF-s-FiQkaZU"
+        },
+      });
+
+      // Define columns with Edit and Delete
+      const userColumns = [
+        { Header: "Sr. No.", accessor: "srNo", align: "center" },
+        { Header: "Email", accessor: "email", align: "center" },
+        { Header: "Mobile Number", accessor: "mobileNumber", align: "center" },
+        { Header: "User Role", accessor: "userRole", align: "center" },
+        {
+          Header: "Actions", // Action column header
+          accessor: "actions", // Action column accessor
+          align: "center",
+        },
+      ];
+
+      // Map rows from API response with Sr. No. and Actions
+      const userRows = response.data.map((user, index) => ({
+        srNo: index + 1, // Generate Sr. No. starting from 1
+        email: user.email,
+        mobileNumber: user.mobileNumber,
+        userRole: user.userRole,
+        actions: (
+          <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+            {/* Edit and Delete Icons */}
+            <EditIcon
+              style={{ color: "blue", cursor: "pointer" }}
+              onClick={() => handleEdit(user)} // Open modal on edit
+            />
+            <DeleteIcon
+              style={{ color: "red", cursor: "pointer" }}
+              onClick={() => handleDelete(user.userId)}
+            />
+          </div>
+        ),
+      }));
+
+      setColumns(userColumns);
+      setRows(userRows);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
 
   useEffect(() => {
-    // Fetch users from the API
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/auth/getAllUsers", {
-          headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI3NWU4OGUxZC1lMjVhLTQzOWYtOWUzMy02MTI0ZWQyMTk5ZjMiLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSTNOV1U0T0dVeFpDMWxNalZoTFRRek9XWXRPV1V6TXkwMk1USTBaV1F5TVRrNVpqTWlMQ0pwWVhRaU9qRTNNelU0T1RBeE5qRXNJbVY0Y0NJNk1UY3pOamMxTkRFMk1YMC5aTnRVaTZQYk5DUHFxRnF6TTVoQng4WFpXT0h6eWRxV2ZOSmZvQjlvby1jIiwiaWF0IjoxNzM1ODkwMTgwfQ.q2BtFNfOEvw0KD-2bKC8SkhyBm8VbxVCxEWEOzwvX9A",
-          },
-        });
-
-        // Define columns with Edit and Delete
-        const userColumns = [
-          { Header: "Sr. No.", accessor: "srNo", align: "center" },
-          { Header: "Email", accessor: "email", align: "center" },
-          { Header: "Mobile Number", accessor: "mobileNumber", align: "center" },
-          { Header: "User Role", accessor: "userRole", align: "center" },
-          {
-            Header: "Actions", // Action column header
-            accessor: "actions", // Action column accessor
-            align: "center",
-          },
-        ];
-
-        // Map rows from API response with Sr. No. and Actions
-        const userRows = response.data.map((user, index) => ({
-          srNo: index + 1, // Generate Sr. No. starting from 1
-          email: user.email,
-          mobileNumber: user.mobileNumber,
-          userRole: user.userRole,
-          actions: (
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-              {/* Edit and Delete Icons */}
-              <EditIcon
-                style={{ color: "blue", cursor: "pointer" }}
-                onClick={() => handleEdit(user)} // Open modal on edit
-              />
-              <DeleteIcon
-                style={{ color: "red", cursor: "pointer" }}
-                onClick={() => handleDelete(user.id)}
-              />
-            </div>
-          ),
-        }));
-
-        setColumns(userColumns);
-        setRows(userRows);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-
-    fetchUsers();
+    fetchUsers(); // Call fetchUsers once when the component is mounted
   }, []);
-
   // Handle Edit Action - Open modal with user data
   const handleEdit = (user) => {
     setSelectedUser(user); // Set user to edit
@@ -243,15 +100,17 @@ function UserList() {
 
   // Handle Delete Action
   const handleDelete = async (userId) => {
+    console.log(userId)
     const confirmed = window.confirm("Are you sure you want to delete this publication?");
     if (confirmed) {
       try {
         const response = await axios.delete(
-          `http://localhost:8080/api/publications/remove/${userId}`,
+        //  `http://localhost:8080/auth/delete/${userId}`,
+          `http://localhost:8080/auth/delete/${userId}` ,
           {
             headers: {
               Authorization:
-                "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjNDUzNGM2Mi1hMzVlLTQ4OTctYmMzOC1iYTEyOTk2NzZiYjciLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSmpORFV6TkdNMk1pMWhNelZsTFRRNE9UY3RZbU16T0MxaVlURXlPVGsyTnpaaVlqY2lMQ0pwWVhRaU9qRTNNell6TWpZM05EQXNJbVY0Y0NJNk1UY3pOekU1TURjME1IMC5yWXAxVVNGWnVsbkpKalpKOTFKWDNqNkpsak56VlozeFh0NzFDMkR4MWVvIiwiaWF0IjoxNzM2MzI2NzY5fQ.J7topEe1BHkeWz8wHzJEu7ZqV43aD_vnmSy_2_x87F4",
+"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjOGEzMmI1NC1iNWZlLTRjZmUtYWI5YS1lYWJlNGY4ZmJhMDEiLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSmpPR0V6TW1JMU5DMWlOV1psTFRSalptVXRZV0k1WVMxbFlXSmxOR1k0Wm1KaE1ERWlMQ0pwWVhRaU9qRTNNelkwTWpNNU56QXNJbVY0Y0NJNk1UY3pOekk0TnprM01IMC5JZDlzRlg1VDkxbDh0ZEY2SkVtTzZSQkRlU3ZlbEZaMkNpUnNLZWwtMFdNIiwiaWF0IjoxNzM2NDIzOTg1fQ.h504ZL2SKWBe74hWkEvbQT7nqlvuY_MCF-s-FiQkaZU"
             },
           }
         );
@@ -259,6 +118,8 @@ function UserList() {
           alert("Publication deleted successfully!");
           // Refresh the user list after deletion
           setRows((prevRows) => prevRows.filter((row) => row.id !== userId));
+          fetchUsers();
+
         }
       } catch (error) {
         console.error("Error deleting publication:", error);
@@ -280,23 +141,25 @@ function UserList() {
   const handleSave = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/auth/edit/${selectedUser.id}`, // Use user ID dynamically
+        `http://localhost:8080/auth/edit/${selectedUser.userId}`, // Use user ID dynamically
+
         formData,
         {
           headers: {
             Authorization:
-              "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI3NWU4OGUxZC1lMjVhLTQzOWYtOWUzMy02MTI0ZWQyMTk5ZjMiLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSTNOV1U0T0dVeFpDMWxNalZoTFRRek9XWXRPV1V6TXkwMk1USTBaV1F5TVRrNVpqTWlMQ0pwWVhRaU9qRTNNelU0T1RBeE5qRXNJbVY0Y0NJNk1UY3pOamMxTkRFMk1YMC5aTnRVaTZQYk5DUHFxRnF6TTVoQng4WFpXT0h6eWRxV2ZOSmZvQjlvby1jIiwiaWF0IjoxNzM1ODkwMTgwfQ.q2BtFNfOEvw0KD-2bKC8SkhyBm8VbxVCxEWEOzwvX9A",
+"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjOGEzMmI1NC1iNWZlLTRjZmUtYWI5YS1lYWJlNGY4ZmJhMDEiLCJ1c2VyUm9sZSI6IlNVUEVSX0FETUlOIiwiYWNjZXNzQ29kZSI6ImV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SjFjMlZ5U1dRaU9pSmpPR0V6TW1JMU5DMWlOV1psTFRSalptVXRZV0k1WVMxbFlXSmxOR1k0Wm1KaE1ERWlMQ0pwWVhRaU9qRTNNelkwTWpNNU56QXNJbVY0Y0NJNk1UY3pOekk0TnprM01IMC5JZDlzRlg1VDkxbDh0ZEY2SkVtTzZSQkRlU3ZlbEZaMkNpUnNLZWwtMFdNIiwiaWF0IjoxNzM2NDIzOTg1fQ.h504ZL2SKWBe74hWkEvbQT7nqlvuY_MCF-s-FiQkaZU"
           },
         }
       );
       if (response.status === 200) {
         alert("User updated successfully!");
         setOpen(false); // Close modal
-        fetchUsers(); // Refresh the user list after edit
+        fetchUsers();
       }
     } catch (error) {
       console.error("Error updating user:", error);
-      alert("Failed to update user. Please try again.");
+      alert("Failed to delete publication. Please try again.");
+
     }
   };
 
@@ -362,14 +225,31 @@ function UserList() {
             fullWidth
             margin="normal"
           />
-          <TextField
-            label="User Role"
-            name="userRole"
-            value={formData.userRole}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
+         
+         <MDBox mb={2}>
+  <FormControl fullWidth>
+    <InputLabel>User Role</InputLabel>
+    <Select
+      name="userRole" // Ensure name is set for consistency
+      value={formData.userRole}
+      onChange={(e) => 
+        setFormData((prevData) => ({
+          ...prevData,
+          userRole: e.target.value, // Update userRole directly
+        }))
+      }
+      label="User Role"
+      sx={{
+        height: "40px",
+      }}
+    >
+      <MenuItem value="ADMIN">ADMIN</MenuItem>
+      <MenuItem value="BUSINESS_TEAM">BUSINESS TEAM</MenuItem>
+      <MenuItem value="CLIENT">CLIENT</MenuItem>
+    </Select>
+  </FormControl>
+</MDBox>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
